@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Barang - PBP Inventory</title>
+    <link rel="stylesheet" href="{% static 'inventory/css/style.css' %}">
+    <script src="{% static 'inventory/js/item_list.js' %}" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Management Inventaris Barang</h1>
+
+        <div class="card">
+            <h2>Tambah Barang (AJAX)</h2>
+
+            <!-- Global Error Container -->
+            <div id="globalError" class="alert-error"></div>
+
+            <form id="addItemForm" method="POST" data-add-url="{% url 'inventory:add_item_ajax' %}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_name">Nama Barang</label>
+                    <input type="text" name="name" id="id_name" placeholder="Contoh: Laptop Gaming">
+                    <div id="error_name" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_price">Harga (Rp)</label>
+                    <input type="number" name="price" id="id_price" placeholder="Contoh: 15000000">
+                    <div id="error_price" class="error-message"></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_description">Deskripsi</label>
+                    <textarea name="description" id="id_description" rows="3" placeholder="Deskripsi barang..."></textarea>
+                    <div id="error_description" class="error-message"></div>
+                </div>
+
+                <button type="submit" id="btnSubmit">Tambah Barang</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Daftar Barang</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Harga</th>
+                        <th>Deskripsi</th>
+                    </tr>
+                </thead>
+                <tbody id="itemList">
+                    {% for item in items %}
+                    <tr id="item-{{ item.id }}">
+                        <td>{{ item.name }}</td>
+                        <td>Rp {{ item.price }}</td>
+                        <td>{{ item.description }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr id="emptyRow">
+                        <td colspan="3" style="text-align: center; color: var(--text-muted);">Belum ada barang.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

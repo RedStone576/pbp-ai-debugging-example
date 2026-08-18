@@ -11,3 +11,6 @@ wheels/
 
 # Skills
 .agents/skills/
+
+# SQLite database
+db.sqlite3
