@@ -1,6 +1,4 @@
-# AI-assisted Debugging Example
-
-An illustrative example for AI literacy discussion.
+# BURHAN-CHAN? YAHOOOOOOOOOOOOO
 
 ## Getting Started
 
